@@ -1,0 +1,19 @@
+echo "Creating directory"
+mkdir assignments
+cd assignments
+touch cities.txt
+echo "Enter 5 Cities Names"
+city=0
+while [ $city -lt 5 ]
+do
+        read city1
+        echo $city1 >> cities.txt
+        city=`expr $city + 1`
+done
+echo "Displaying the Cities"
+cat cities.txt
+echo "Finding the cities with new in it"
+cat cities.txt | grep -i new
+echo "Replace New to Old"
+cat cities.txt | grep -i new | sed 's/new/old/I' > oldcities.txt
+cat oldcities.txt
