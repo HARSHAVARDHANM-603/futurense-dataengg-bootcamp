@@ -1,6 +1,4 @@
 from mrjob.job import MRJob
-
-
 class Rating_count(MRJob):
         def mapper(self, _, line):
                 (userID,movieID, rating, timestamp) = line.split(',')
