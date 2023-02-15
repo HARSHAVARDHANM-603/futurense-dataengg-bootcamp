@@ -7,5 +7,5 @@ class Rating_count(MRJob):
                 if rate != "rating":
                         yield(rate, sum(counts))
 
-if __name__ == '_main_':
+if __name__ == '__main__':
 	Rating_count.run()
