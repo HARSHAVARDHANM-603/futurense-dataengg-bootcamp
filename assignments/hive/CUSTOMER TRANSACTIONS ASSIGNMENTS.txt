@@ -1,0 +1,79 @@
+1)
+hive> SELECT CU.CUST_ID, CU.FIRST_NAME, COUNT(TR.TRANS_ID) FROM CUSTOMER CU JOIN TRANSACTIONS TR ON CU.CUST_ID = TR.CUST_ID GROUP BY CU.CUST_ID, CU.FIRST_NAME;
+cu.cust_id      cu.first_name   _c2
+4000001 			Chung   	8
+4000002 			Chen    	6
+4000003 			Melton  	3
+4000004 			Hill    	5
+4000005 			Puckett 	5
+4000006 			Song    	5
+4000007 			Hamilton   6
+4000008 			Bender  	10
+4000009 			Wagner  	6
+4000010 			McLaughlin 6
+===================================================================================================================================================================
+2)
+hive> SELECT CU.CUST_ID, CU.FIRST_NAME, SUM(TR.AMOUNT) FROM CUSTOMER CU JOIN TRANSACTIONS TR ON CU.CUST_ID = TR.CUST_ID GROUP BY CU.CUST_ID, CU.FIRST_NAME;
+cu.cust_id      cu.first_name   _c2
+4000001 			Chung   651.05
+4000002 			Chen    706.97
+4000003 			Melton  527.5899999999999
+4000004 			Hill    337.06
+4000005 			Puckett 325.15
+4000006 			Song    539.38
+4000007 			Hamilton    	699.5500000000001
+4000008 			Bender  859.42
+4000009 			Wagner  457.83
+4000010 			McLaughlin  447.09000000000003
+===================================================================================================================================================================
+3)
+hive> SELECT CU.CUST_ID, CU.FIRST_NAME, SUM(TR.AMOUNT)AMOUNT FROM CUSTOMER CU JOIN TRANSACTIONS TR ON CU.CUST_ID = TR.CUST_ID GROUP BY CU.CUST_ID, CU.FIRST_NAME ORDER BY AMOUNT DESC LIMIT 3;
+cu.cust_id      cu.first_name   amount
+4000008 			Bender  859.42
+4000002 			Chen    706.97
+4000007 			Hamilton 699.5500000000001
+===================================================================================================================================================================
+4)
+hive> SELECT CU.CUST_ID, CU.FIRST_NAME, COUNT(TR.TRANS_ID), TR.PYMT_MODE FROM CUSTOMER CU JOIN TRANSACTIONS TR ON CU.CUST_ID = TR.CUST_ID GROUP BY CU.CUST_ID, CU.FIRST_NAME, TR.PYMT_MODE;
+cu.cust_id      cu.first_name   _c2     tr.pymt_mode
+4000001 			Chung      1       cash
+4000001 			Chung      7       credit
+4000002 			Chen       1       cash
+4000002 			Chen       5       credit
+4000003 			Melton     3       credit
+4000004 			Hill       4       cash
+4000004 			Hill       1       credit
+4000005 			Puckett    1       cash
+4000005 			Puckett    4       credit
+4000006 			Song       5       credit
+4000007 			Hamilton   6       credit
+4000008 			Bender     10      credit
+4000009 			Wagner     6       credit
+4000010 			McLaughlin 6       credit
+===================================================================================================================================================================
+5)
+hive> SELECT CITY, COUNT(TRANS_ID)CNT FROM TRANSACTIONS GROUP BY CITY ORDER BY CNT DESC LIMIT 3;
+city    		cnt
+Honolulu        3
+Columbus        3
+Everett 	     2
+===================================================================================================================================================================
+6)
+hive> SELECT SUBSTR(TRANS_DATE, 1,2), MAX(AMOUNT) FROM TRANSACTIONS GROUP BY SUBSTR(TRANS_DATE, 1, 2);
+
+01      20.13
+02      193.63
+03      174.36
+04      185.26
+05      198.44
+06      198.19
+07      144.59
+08      150.6
+09      157.94
+10      154.87
+11      165.1
+12      194.86
+===================================================================================================================================================================
+===================================================================================================================================================================
+===================================================================================================================================================================
+===================================================================================================================================================================
