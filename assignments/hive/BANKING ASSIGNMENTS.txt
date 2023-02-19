@@ -1,0 +1,297 @@
+1)
+hive>  CREATE TABLE IF NOT EXISTS BANKMARKANA(AGE INT, JOB STRING, MARITAL STRING, EDUCATION STRING, DEFAULT STRING, BALANCE INT, HOUSING STRING, LOAN STRING, CONTACT STRING, DAY STRING, MONTH STRING, DURATION INT, CAMPAIGN INT, PDAYS INT, PREVIOUS INT, POUTCOME STRING, Y STRING)
+    > ROW FORMAT DELIMITED
+    > FIELDS TERMINATED BY ';'
+    > LINES TERMINATED BY '\n'
+    > STORED AS TEXTFILE;
+hive> LOAD DATA LOCAL INPATH 'futurense_hadoop-pyspark/labs/dataset/bankmarket/bankmarketdata.csv' OVERWRITE INTO TABLE BANKMARKANA;
+=====================================================================================================================================================================
+2)
+hive> SELECT (SELECT COUNT(*) FROM BANKMARKANA WHERE Y = '"yes"')/COUNT(*)SUCCESS_RATE FROM BANKMARKANA;
+0.11698221711050164
+=====================================================================================================================================================================
+3)
+hive> SELECT (SELECT COUNT(*) FROM BANKMARKANA WHERE Y = '"no"')/COUNT(*)SUCCESS_RATE FROM BANKMARKANA;
+0.8829956648677342
+=====================================================================================================================================================================
+4)
+hive> SELECT MAX(AGE)MAX_AGE, AVG(AGE)AVG_AGE, MIN(AGE)MIN_AGE FROM BANKMARKANA;
+max_age    avg_age 			  min_age
+95      40.93621021432837           18
+=====================================================================================================================================================================
+5)
+hive> SELECT AVG(BALANCE)AVG, PERCENTILE(CAST(BALANCE AS BIGINT),0.5)MEDIAN FROM BANKMARKANA;
+avg    			 median
+1362.2720576850766      448.0
+=====================================================================================================================================================================
+6)
+hive> SELECT AGE, COUNT(*)COUNT FROM BANKMARKANA WHERE Y = '"yes"' GROUP BY AGE;
+age     count
+18      7
+19      11
+20      15
+21      22
+22      40
+23      44
+24      68
+25      113
+26      134
+27      141
+28      162
+29      171
+30      217
+31      206
+32      221
+33      210
+34      198
+35      209
+36      195
+37      170
+38      144
+39      143
+40      116
+41      120
+42      111
+43      103
+44      93
+45      106
+46      118
+47      113
+48      82
+49      101
+50      72
+51      77
+52      85
+53      85
+54      84
+55      76
+56      68
+57      78
+58      72
+59      88
+60      98
+61      57
+62      39
+63      30
+64      35
+65      21
+66      24
+67      23
+68      21
+69      17
+70      17
+71      25
+72      24
+73      24
+74      13
+75      15
+76      16
+77      22
+78      14
+79      10
+80      12
+81      6
+82      8
+83      6
+84      5
+85      4
+86      4
+87      3
+90      2
+92      2
+93      2
+95      1
+=====================================================================================================================================================================
+7)
+hive> SELECT MARITAL, COUNT(*)COUNT FROM BANKMARKANA WHERE Y = '"yes"' GROUP BY MARITAL;
+marital 		count
+"divorced"      622
+"married"       2755
+"single"        1912
+=====================================================================================================================================================================
+8)
+hive> SELECT MARITAL,AGE, COUNT(*)COUNT FROM BANKMARKANA WHERE Y = '"yes"' GROUP BY MARITAL, AGE;
+marital age     count
+"single"        18      7
+"single"        19      11
+"married"       20      1
+"single"        20      14
+"married"       21      1
+"single"        21      21
+"single"        22      40
+"married"       23      2
+"single"        23      42
+"married"       24      10
+"single"        24      58
+"married"       25      14
+"single"        25      99
+"married"       26      13
+"single"        26      121
+"divorced"      27      2
+"married"       27      29
+"single"        27      110
+"divorced"      28      4
+"married"       28      20
+"single"        28      138
+"divorced"      29      5
+"married"       29      33
+"single"        29      133
+"divorced"      30      7
+"married"       30      59
+"single"        30      151
+"divorced"      31      15
+"married"       31      80
+"single"        31      111
+"divorced"      32      10
+"married"       32      87
+"single"        32      124
+"divorced"      33      16
+"married"       33      97
+"single"        33      97
+"divorced"      34      11
+"married"       34      118
+"single"        34      69
+"divorced"      35      24
+"married"       35      101
+"single"        35      84
+"divorced"      36      24
+"married"       36      100
+"single"        36      71
+"divorced"      37      15
+"married"       37      98
+"single"        37      57
+"divorced"      38      20
+"married"       38      86
+"single"        38      38
+"divorced"      39      16
+"married"       39      87
+"single"        39      40
+"divorced"      40      12
+"married"       40      73
+"single"        40      31
+"divorced"      41      17
+"married"       41      72
+"single"        41      31
+"divorced"      42      19
+"married"       42      70
+"single"        42      22
+"divorced"      43      15
+"married"       43      62
+"single"        43      26
+"divorced"      44      21
+"married"       44      48
+"single"        44      24
+"divorced"      45      24
+"married"       45      68
+"single"        45      14
+"divorced"      46      25
+"married"       46      80
+"single"        46      13
+"divorced"      47      10
+"married"       47      83
+"single"        47      20
+"divorced"      48      16
+"married"       48      51
+"single"        48      15
+"divorced"      49      16
+"married"       49      71
+"single"        49      14
+"divorced"      50      11
+"married"       50      57
+"single"        50      4
+"divorced"      51      10
+"married"       51      59
+"single"        51      8
+"divorced"      52      10
+"married"       52      67
+"single"        52      8
+"divorced"      53      18
+"married"       53      60
+"single"        53      7
+"divorced"      54      24
+"married"       54      52
+"single"        54      8
+"divorced"      55      26
+"married"       55      50
+"divorced"      56      13
+"married"       56      49
+"single"        56      6
+"divorced"      57      15
+"married"       57      58
+"single"        57      5
+"divorced"      58      17
+"married"       58      54
+"single"        58      1
+"divorced"      59      16
+"married"       59      66
+"single"        59      6
+"divorced"      60      21
+"married"       60      73
+"single"        60      4
+"divorced"      61      9
+"married"       61      47
+"single"        61      1
+"divorced"      62      5
+"married"       62      34
+"divorced"      63      4
+"married"       63      25
+"single"        63      1
+"divorced"      64      4
+"married"       64      31
+"divorced"      65      2
+"married"       65      19
+"divorced"      66      2
+"married"       66      22
+"divorced"      67      7
+"married"       67      15
+"single"        67      1
+"divorced"      68      6
+"married"       68      13
+"single"        68      2
+"divorced"      69      3
+"married"       69      13
+"single"        69      1
+"divorced"      70      5
+"married"       70      12
+"divorced"      71      8
+"married"       71      17
+"divorced"      72      1
+"married"       72      23
+"divorced"      73      4
+"married"       73      19
+"single"        73      1
+"divorced"      74      2
+"married"       74      11
+"divorced"      75      3
+"married"       75      12
+"divorced"      76      6
+"married"       76      10
+"divorced"      77      3
+"married"       77      19
+"divorced"      78      6
+"married"       78      8
+"divorced"      79      2
+"married"       79      8
+"divorced"      80      1
+"married"       80      11
+"divorced"      81      2
+"married"       81      4
+"divorced"      82      3
+"married"       82      5
+"divorced"      83      2
+"married"       83      3
+"single"        83      1
+"divorced"      84      1
+"married"       84      4
+"divorced"      85      1
+"married"       85      3
+"divorced"      86      1
+"married"       86      2
+"single"        86      1
+"divorced"      87      1
+"married"       87      2
+"divorced"      90      2
+"married"       92      2
+"married"       93      2
+"divorced"      95      1
+=====================================================================================================================================================================
