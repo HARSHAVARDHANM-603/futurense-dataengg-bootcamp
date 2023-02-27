@@ -5,7 +5,9 @@ class Count(MRJob):
                 for word in line.split():
                         yield(word, 1)           
         def reducer(self, word, counts):
-                yield(word, sum(counts))
+                ans = dict()
+                ans[word] = counts
+                yield(ans)
 
 if __name__ == '__main__':
         Count.run()
