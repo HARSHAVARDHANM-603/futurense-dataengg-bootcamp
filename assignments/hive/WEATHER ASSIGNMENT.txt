@@ -1,0 +1,35 @@
+1)
+hive> CREATE EXTERNAL TABLE IF NOT EXISTS WEATHER(wbanno int, lst_date date, crx_vn float, longitude float,latitude float,t_daily_max float,t_daily_min float,
+    > t_daily_mean float, t_daily_avg float,p_daily_calc float, solarad_daily string,sur_temp_daily_type float, sur_temp_daily_max float,
+    > sur_temp_daily_min float,sur_temp_daily_avg float,rh_daily_max float, rh_daily_min float,rh_daily_avg float,soil_moisture_5_daily float,
+    > soil_moisture_10_daily float, soil_moisture_20_daily  float, soil_moisture_50_daily float, soil_moisture_100_daily float,
+    > soil_temp_5_daily float, soil_temp_10_daily float, soil_temp_20_daily float, soil_temp_50_daily float, soil_temp_100_daily  float)
+    > ROW FORMAT DELIMITED
+    > FIELDS TERMINATED BY ','
+    > LINES TERMINATED BY '\n'
+    > STORED AS TEXTFILE
+    > LOCATION '~/user/training/weather';
+===========================================================================================================================================================================
+2)
+hive>  LOAD DATA LOCAL INPATH '/mnt/c/Users/miles.MILE-BL-4492-LA/Downloads/modify1_weather.txt' OVERWRITE INTO TABLE WEATHER;
+===========================================================================================================================================================================
+3)
+hive> SELECT * FROM WEATHER LIMIT 10;
+===========================================================================================================================================================================
+4)
+hive> SELECT MAX(t_daily_max), MIN(t_daily_min) FROM WEATHER;
+
+36.0    -7.9
+===========================================================================================================================================================================
+5)
+hive> SELECT MONTH(lst_date), MAX(t_daily_max), MIN(t_daily_min) FROM WEATHER GROUP BY MONTH(lst_date);
+
+NULL    13.7    4.4
+1       26.5    -7.9
+2       26.6    -3.5
+3       29.1    -3.2
+4       30.8    8.0
+5       31.1    14.3
+6       33.6    0.0
+7       36.0    19.8
+===========================================================================================================================================================================
